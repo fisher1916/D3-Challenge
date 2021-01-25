@@ -2,14 +2,15 @@
 var svgWidth = 1000;
 var svgHeight = 600;
 
-var margin = { top: 20, right: 40, bottom: 60, left: 100 };
+var margin = { top: 20, right: 40, bottom: 80, left: 130 };
 
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
 // Create an SVG wrapper, append an SVG group that will hold our chart, and shift the latter by left and top margins.
+// *********** Why aren't we selecting ("scatter") instead?************
 var svg = d3
-  .select("body")
+  .select("body") 
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
@@ -28,60 +29,122 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
     data.poverty = +data.poverty;
     data.income = +data.income;
     data.obesity = +data.obesity;
-    console.log(data.obesity)
+    data.age = +data.age;
+    data.smokes = +data.smokes;
   });
 
 
   // Create scaling functions
-
   var xIncome = d3.scaleLinear()
     .domain(d3.extent(demoData, d => d.income))
+    .range([0, width]);
+
+  var xPoverty = d3.scaleLinear()
+    .domain(d3.extent(demoData, d => d.poverty))
+    .range([0,width]);
+  
+  var xAge = d3.scaleLinear()
+    .domain(d3.extent(demoData, d=> d.age))
     .range([0, width]);
 
   var yObesity = d3.scaleLinear()
     .domain(d3.extent(demoData, d => d.obesity))
     .range([height, 0]);
 
+  var yHealthcare = d3.scaleLinear()
+    .domain(d3.extent(demoData, d => d.healthcare))
+    .range([height, 0]);
 
-  // Create axis functions
-  var bottomAxis = d3.axisBottom(xIncome);
-  var leftAxis = d3.axisLeft(yObesity);
+  var ySmokes = d3.scaleLinear()
+    .domain(d3.extent(demoData, d => d.smokes))
+    .range([height, 0]);
 
 
-  // Add x1-axis
+  // Create x-axis functions
+  var bottomAxisIncome = d3.axisBottom(xIncome);
+  var bottomAxisPoverty = d3.axisBottom(xPoverty);
+  var bottomAxisAge = d3.axisBottom(xAge);
+
+  // Create y-axis functions
+  var leftAxisObesity = d3.axisLeft(yObesity);
+  var leftAxisHealth = d3.axisLeft(yHealthcare);
+  var leftAxisSmokes = d3.axisLeft(ySmokes);
+
+
+  // Add x1-axis to bottom of the display
   chartGroup.append("g")
     .attr("transform", `translate(0, ${height})`)
-    .call(bottomAxis);
+    .call(bottomAxisIncome);
+
+  // Add x2-axis 
+  chartGroup.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxisPoverty);
+
+  // Add x3-axis 
+  chartGroup.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxisAge);
 
   // Add y1-axis to the left side of the display
   chartGroup.append("g")
     // Define the color of the axis text   ******THIS IS NOT CHANGING THE COLOR************
     .classed("green", true)                             
-    .call(leftAxis);
+    .call(leftAxisObesity);
 
-  // Append "x" axes titles
+  // Add y2-axis to left side of the display
+  chartGroup.append("g")
+    .classed("green", true)                             
+    .call(leftAxisHealth);
+
+  // Add y3-axis to left side of the display
+  chartGroup.append("g")
+    .classed("green", true)                             
+    .call(leftAxisSmokes);
+
+
+  // Append x axis titles
   chartGroup.append("text")
-  .attr("text-anchor", "middle")
-  .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
-  .classed("income-text text", true)
-  .text("Household Income(median)"); 
+    .attr("text-anchor", "middle")
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+    .classed("income-text text", true)
+    .text("Household Income(median)"); 
 
   chartGroup.append("text")
-  .attr("text-anchor", "middle")
-  .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
-  .classed("poverty-text text", true)
-  .text("Poverty Rate(%)");
+    .attr("text-anchor", "middle")
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
+    .classed("poverty-text text", true)
+    .text("Poverty Rate(%)");
 
-  // Append "y" axes titles
   chartGroup.append("text")
-  .attr("text-anchor", "middle")
-  .attr("transform", `translate(-35, ${height/2})rotate(-90)`)
-  .classed("obesity-text text", true)
-  .text("Obesity Rate(%)");
+    .attr("text-anchor", "middle")
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 54})`)
+    .classed("age-text text", true)
+    .text("Age(median)");
 
+  // Append y axis titles
+  chartGroup.append("text")
+    .attr("text-anchor", "middle")
+    .attr("transform", `translate(-38, ${height/2})rotate(-90)`)
+    .classed("obesity-text text", true)
+    .text("Obesity Rate(%)");
+
+  chartGroup.append("text")
+    .attr("text-anchor", "middle")
+    .attr("transform", `translate(-57, ${height/2})rotate(-90)`)
+    .classed("healthcare-text text", true)
+    .text("Lacks Healthcare(%)");
+
+  chartGroup.append("text")
+    .attr("text-anchor", "middle")
+    .attr("transform", `translate(-76, ${height/2})rotate(-90)`)
+    .classed("smokes-text text", true)
+    .text("Smokes(%)");
+  
 // ******To change which x or y chart, would you change xIncome/yObesity to a variable that**** 
 // ******holds all 3 for each? And set that variable to mouseclick.change? What would you ****
 // ******set d.income/d.obesity to?             ****
+
 // Plot data points onto chart, save into a variable
   var circlesGroup = chartGroup.selectAll("circle")
   .data(demoData)
@@ -99,8 +162,8 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
   .attr("class", "tooltip");
 
   function onClick(d,i) {
-    toolTip.style("display", "circle");
-    toolTip.html(`State: <strong>${d.poverty[i]}</strong>`)
+    toolTip.style("display", "block");
+    toolTip.html(`Poverty Rate: <strong>${d.poverty[i]}</strong>`)
   }
 
 
@@ -122,6 +185,9 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
 
 
 
+// style.css dynamic function isn't working?
+// onClick isn't working
+// Can't figure out how to put abbr into circles
 
 
 

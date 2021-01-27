@@ -2,7 +2,7 @@
 var svgWidth = 800;
 var svgHeight = 550;
 
-var margin = { top: 20, right: 40, bottom: 80, left: 90 };
+var margin = { top: 20, right: 40, bottom: 80, left: 60 };
 
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
@@ -73,8 +73,8 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
     .attr("class", "d3-tip")
     .offset([80, -60])
     .html(function(d) {
-        return `<strong>${(d.state)}<br>Poverty Rate: ${(d.poverty)}<br>Median 
-        Income: ${d.income}</strong>`;
+        return `<strong>${(d.state)}<br>Median 
+        Income: ${d.income}<br>Obesity Rate: ${(d.obesity)}</strong>`;
     });
 
     // Call the tooltip

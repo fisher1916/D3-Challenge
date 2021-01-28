@@ -1,3 +1,5 @@
+// ***This bonus part of the code is NOT complete. Do not grade. ***
+
 // Chart Params
 var svgWidth = 800;
 var svgHeight = 550;

@@ -12,7 +12,7 @@
 
 # Results
 
-![](D3-Challenge/D3_data_journalism/Images/ObesityVsIncome.jpg)
+![](D3_data_journalism/Images/ObesityVsIncome.jpg)
 
 
 # Data Analysis

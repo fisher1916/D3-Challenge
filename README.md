@@ -1,6 +1,6 @@
 # Data Journalism
 
-* Obesity vs Income: This data, taken from the 2014 ACS 1-year estimates from the U.S. Census Bureau, looks at the health risks associated with certain demographics within each state. The files contain here provide an interactive scatter plot comparing state obesity rates with state median income. 
+* Obesity vs Income: This data, taken from the 2014 ACS 1-year estimates from the U.S. Census Bureau, looks at the health risks associated with certain demographics within each state. The files contained here provide an interactive scatter plot comparing state obesity rates with state median income. 
 
 # Files
 

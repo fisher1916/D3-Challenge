@@ -4,7 +4,7 @@
 
 # Files
 
-* [`Data journalism.index`](D3-Challenge/blob/main/D3_data_journalism/index.html) - Html file, that displays web page with the scatter plot and data analysis. 
+* [`Data journalism.index`](D3_data_journalism/index.html) - Html file, that displays web page with the scatter plot and data analysis. 
 
 * [`assets/js`](D3_data_journalism/assets/js/) - File that contains all the primary code to run the interactive functionality.
 

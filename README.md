@@ -4,11 +4,11 @@
 
 # Files
 
-* D3-Challenge/blob/main/D3_data_journalism/index.html - Html file, that displays web page with the scatter plot and data analysis. 
+* [`Data journalism.index`](D3-Challenge/blob/main/D3_data_journalism/index.html) - Html file, that displays web page with the scatter plot and data analysis. 
 
-* D3_data_journalism/assets/js/ - File that contains all the primary code to run the interactive functionality.
+* [`assets/js`](D3_data_journalism/assets/js/) - File that contains all the primary code to run the interactive functionality.
 
-* D3_data_journalism/assets/data/ - Data file, containing 2014 ACS 1-year estimates from the U.S. Census Bureau.
+* [`assets/data`](D3_data_journalism/assets/data/) - Data file, containing 2014 ACS 1-year estimates from the U.S. Census Bureau.
 
 # Results
 

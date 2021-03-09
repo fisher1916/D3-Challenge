@@ -28,4 +28,4 @@ The correlations between income and health risks has been widely studied and doc
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Created in fun by Erica in 2021
+Created in fun by [Erica](https://www.linkedin.com/in/ericafisher1) in 2021
